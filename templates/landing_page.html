@@ -1,0 +1,26 @@
+^tmp_head^
+    <div class="jumbotron" ng-if="showHero" ng-style="{'background-image': 'url(' + heroImage + ')'}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <h1>^hero_header^</h1>
+                    <p>^hero_copy^</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container content">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="row">
+                    <div class="col-sm-9 article">
+                        ^home_page_content^
+                    </div>
+                    <div class="col-sm-3">
+                        ^tmp_elements=profile_buttons^
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+^tmp_footer^

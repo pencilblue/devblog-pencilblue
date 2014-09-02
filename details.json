@@ -1,0 +1,72 @@
+{
+    "uid": "devblog-pencilblue",
+    "name": "Devblog Theme",
+    "description": "A PencilBlue theme built with a developer blog in mind.",
+    "version": "0.1.0",
+    "author": {
+        "name": "PencilBlue",
+        "email": "info@pencilblue.org",
+        "website": "http://pencilblue.org",
+        "contributors": [
+            {
+                "name": "Blake Callens",
+                "email": ""
+            },
+            {
+                "name": "Brian Hyder",
+                "email": ""
+            }
+        ]
+    },
+    "settings": [
+        {
+            "name": "home_page_keywords",
+            "value": "pencilblue,devblog,theme,plugin"
+        },
+        {
+            "name": "home_page_description",
+            "value": "This is the landing page of the PencilBlue Devblog theme plugin."
+        },
+        {
+            "name": "github_id",
+            "value": "pencilblue"
+        },
+        {
+            "name": "twitter_id",
+            "value": "GetPencilBlue"
+        },
+        {
+            "name": "stack_exchange_id",
+            "value": "4968861"
+        },
+        {
+            "name": "stack_overflow_id",
+            "value": "3997319"
+        },
+        {
+            "name": "linkedin_profile",
+            "value": "https://www.linkedin.com/company/5130655"
+        },
+        {
+            "name": "angellist_id",
+            "value": "pencilblue"
+        },
+        {
+            "name": "youtube_channel",
+            "value": "https://www.youtube.com/channel/UCmPigpJP2qa7kuwh9gNKAug"
+        }
+    ],
+    "permissions": {
+        "ACCESS_USER": [],
+        "ACCESS_WRITER": [],
+        "ACCESS_EDITOR": [],
+        "ACCESS_MANAGING_EDITOR": []
+    },
+    "main_module": {
+        "path": "devblog.js"
+    },
+    "theme": {
+        "settings": [],
+        "content_templates": []
+    }
+}
