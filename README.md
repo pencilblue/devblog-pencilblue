@@ -1,3 +1,5 @@
+## Note: Devblog does not yet work with v0.3.0 and above. We will have a fix in shortly.
+
 [Devblog Theme for PencilBlue](http://pencilblue.org)
 =====
 
