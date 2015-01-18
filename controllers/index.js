@@ -77,7 +77,6 @@ Index.prototype.render = function(cb) {
                             navigation: navigationObject,
                             accountButtons: accountButtonsObject,
                             profiles: profiles,
-                            showHero: homePageSettings.show_hero,
                             heroImage: homePageSettings.home_page_hero
                         });
                         self.ts.registerLocal('angular_script', angularData);

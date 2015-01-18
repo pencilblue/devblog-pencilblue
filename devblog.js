@@ -44,7 +44,7 @@ Devblog.onStartup = function(cb) {
                     name: 'home_page_settings',
                     title: 'Home page settings',
                     icon: 'home',
-                    href: '/admin/plugins/settings/devblog-pencilblue/home_page'
+                    href: '/admin/plugins/devblog/settings/home_page'
                 }
             ];
         }

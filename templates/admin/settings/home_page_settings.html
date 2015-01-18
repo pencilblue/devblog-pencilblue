@@ -1,58 +1,35 @@
 ^tmp_admin=head^
 <div class="col-md-9">
-    ^error_success^
+    ^tmp_admin=elements=error_success^
     ^tmp_admin=elements=sub_nav^
     ^tmp_admin=elements=tab_nav^
-    <form id="home_page_settings_form" method="post" action="/actions/admin/plugins/settings/devblog-pencilblue/home_page">
+    <form name="homePageForm" ng-submit="saveHomePage()" novalidate>
         <fieldset>
             <div class="tab-content">
                 <div class="tab-pane active" id="home_layout">
-                    <div class="form-group">
-                        <label>^loc_SHOW_HERO^</label><br/>
-                        <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-default">
-                                <input type="radio" name="show_hero" id="show_hero_1" value="1"> ^loc_YES^
-                            </label>
-                            <label class="btn btn-default">
-                                <input type="radio" name="show_hero" id="show_hero_0" value="0"> ^loc_NO^
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>^loc_HERO_IMAGE^</label><br/>
-                        <img id="home_page_hero_preview" src="" style="max-height: 10em" ng-src="{{homePageSettings.home_page_hero}}"></img>
-                        <input type="hidden" id="home_page_hero" name="home_page_hero" class="form-control" value=""></input>
-                    </div>
-                    <div class="form-group">
-                        <button type="button" class="btn btn-success" onclick="linkToHero('home_page_hero')">
-                            <i class="fa fa-link"></i>&nbsp;^loc_LINK_TO_IMAGE^...
-                        </button>
-                        <button type="button" class="btn btn-primary" onclick="uploadHero('home_page_hero')">
-                            <i class="fa fa-upload"></i>&nbsp;^loc_UPLOAD_IMAGE^...
-                        </button>
-                    </div>
+                    ^tmp_admin=elements=hero_upload^
                     <div class="form-group">
                         <label>^loc_HERO_HEADER^</label>
-                        <input type="text" class="form-control" id="hero_header" name="hero_header"></input>
+                        <input type="text" class="form-control" ng-model="homePageSettings.hero_header"></input>
                     </div>
                     <div class="form-group">
                         <label>^loc_HERO_COPY^</label>
-                        <input type="text" class="form-control" id="hero_copy" name="hero_copy"></input>
+                        <input type="text" class="form-control" ng-model="homePageSettings.hero_copy"></input>
                     </div>
                     <div class="form-group">
                         <label>^loc_CONTENT^&nbsp;<span id="column_inches"></span></label>
-                        ^wysiwyg^
+                        <div id="page_wysiwyg">
+                            ^wysiwyg^
+                        </div>
                     </div>
                 </div>
                 <div class="tab-pane" id="media">
                     ^tmp_admin=elements=inline_media^
                 </div>
-                <a class="btn btn-default" href="/admin/plugins/settings/devblog-pencilblue">
+                <a class="btn btn-default" href="/admin/plugins/portfolio/settings">
                     <i class="fa fa-ban"></i>&nbsp;^loc_CANCEL^
                 </a>
-                <button type="button" class="btn btn-primary" onclick="prepareHomePageSettingsSave()">
-                    <i class="fa fa-save"></i>&nbsp;^loc_SAVE^
-                </button>
+                ^tmp_admin=elements=save_button^
             </div>
         </fieldset>
     </form>
@@ -60,6 +37,5 @@
 
     </div>
 </div>
-^tmp_admin=elements=hero_upload^
-<script type="text/javascript" src="/public/devblog-pencilblue/js/home_page_settings.js"></script>
+^tmp_angular=admin=settings=home_page_settings^
 ^tmp_admin=footer^

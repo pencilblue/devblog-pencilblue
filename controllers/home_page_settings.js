@@ -9,7 +9,6 @@ function HomePageSettings() {}
 
 //dependencies
 var PluginService = pb.PluginService;
-var Media = require(DOCUMENT_ROOT + '/controllers/admin/content/media.js');
 
 //inheritance
 util.inherits(HomePageSettings, pb.BaseController);
@@ -41,25 +40,37 @@ HomePageSettings.prototype.render = function(cb) {
         name: 'devblog_settings',
         title: self.ls.get('HOME_PAGE_SETTINGS'),
         icon: 'chevron-left',
-        href: '/admin/plugins/settings/devblog-pencilblue'
+        href: '/admin/plugins/devblog-pencilblue/settings'
     }];
 
+    var opts = {
+        where: {settings_type: 'home_page'}
+    };
     var dao  = new pb.DAO();
-    dao.query('devblog_theme_settings', {settings_type: 'home_page'}).then(function(homePageSettings) {
+    dao.q('devblog_theme_settings', opts, function(err, homePageSettings) {
         if(homePageSettings.length > 0) {
             homePageSettings = homePageSettings[0];
-            homePageSettings.page_media = homePageSettings.page_media.join(',');
-
-            if(!self.session.fieldValues) {
-                self.setFormFieldValues(homePageSettings);
-            }
         }
         else {
-            homePageSettings = {};
+            homePageSettings = {callouts: [{}, {}, {}]};
         }
 
+        var mservice = new pb.MediaService();
+        mservice.get(function(err, media) {
+            if(homePageSettings.page_media) {
+                var pageMedia = [];
+                for(i = 0; i < homePageSettings.page_media.length; i++) {
+                    for(j = 0; j < media.length; j++) {
+                        if(media[j]._id.equals(ObjectID(homePageSettings.page_media[i]))) {
+                            pageMedia.push(media[j]);
+                            media.splice(j, 1);
+                            break;
+                        }
+                    }
+                }
+                homePageSettings.page_media = pageMedia;
+            }
 
-        Media.getAll(function(media) {
             var objects = {
                 navigation: pb.AdminNavigation.get(self.session, ['plugins', 'manage'], self.ls),
                 pills: pills,
@@ -67,16 +78,11 @@ HomePageSettings.prototype.render = function(cb) {
                 media: media,
                 homePageSettings: homePageSettings
             };
-            var angularData = pb.js.getAngularController(objects);
 
-            self.ts.registerLocal('angular_script', angularData);
+            self.ts.registerLocal('angular_script', '');
+            self.ts.registerLocal('angular_objects', new pb.TemplateValue(pb.js.getAngularObjects(objects), false));
             self.ts.load('admin/settings/home_page_settings', function(err, result) {
-                self.checkForFormRefill(result, function(newResult) {
-                    result = newResult;
-
-                    content.content = result;
-                    cb(content);
-                });
+                cb({content: result});
             });
         });
     });
@@ -84,13 +90,13 @@ HomePageSettings.prototype.render = function(cb) {
 
 HomePageSettings.getRoutes = function(cb) {
     var routes = [
-        {
-            method: 'get',
-            path: '/admin/plugins/settings/devblog-pencilblue/home_page',
-            auth_required: true,
-            access_level: ACCESS_EDITOR,
-            content_type: 'text/html'
-        }
+    {
+        method: 'get',
+        path: '/admin/plugins/devblog/settings/home_page',
+        auth_required: true,
+        access_level: ACCESS_EDITOR,
+        content_type: 'text/html'
+    }
     ];
     cb(null, routes);
 };

@@ -1,15 +1,14 @@
 /**
- * Blog page of the pencilblue theme
- *
- * @author Blake Callens <blake@pencilblue.org>
- * @copyright PencilBlue 2014, All rights reserved
- */
+* Blog page of the pencilblue theme
+*
+* @author Blake Callens <blake@pencilblue.org>
+* @copyright PencilBlue 2014, All rights reserved
+*/
 function Blog(){}
 
 //dependencies
 var PluginService = pb.PluginService;
 var TopMenu        = require(DOCUMENT_ROOT + '/include/theme/top_menu');
-var Media          = require(DOCUMENT_ROOT + '/include/theme/media');
 var Comments       = require(DOCUMENT_ROOT + '/include/theme/comments');
 var ArticleService = require(DOCUMENT_ROOT + '/include/service/entities/article_service').ArticleService;
 var externalProfiles = pb.plugins.getService('external_profiles', 'devblog-pencilblue');
@@ -68,7 +67,7 @@ Blog.prototype.render = function(cb) {
                     });
                 });
                 self.ts.registerLocal('page_name', function(flag, cb) {
-                     self.getContentSpecificPageName(util.isArray(data.content) && data.content.length > 0 ? data.content[0] : null, cb);
+                    self.getContentSpecificPageName(util.isArray(data.content) && data.content.length > 0 ? data.content[0] : null, cb);
                 });
 
                 self.getTemplate(data.content, function(err, template) {
@@ -249,10 +248,10 @@ Blog.prototype.renderContent = function(content, contentSettings, themeSettings,
     ats.registerLocal('author_position', content.author_position ? content.author_position : '');
     ats.registerLocal('media_body_style', content.media_body_style ? content.media_body_style : '');
     ats.registerLocal('comments', function(flag, cb) {
-       if (content.object_type === 'page' || !contentSettings.allow_comments) {
-           cb(null, '');
-           return;
-       }
+        if (content.object_type === 'page' || !contentSettings.allow_comments) {
+            cb(null, '');
+            return;
+        }
 
         self.renderComments(content, ats, function(err, comments) {
             cb(err, new pb.TemplateValue(comments, false));
@@ -368,12 +367,12 @@ Blog.prototype.getNavigation = function(cb) {
 */
 Blog.getRoutes = function(cb) {
     var routes = [
-        {
-            method: 'get',
-            path: '/blog',
-            auth_required: false,
-            content_type: 'text/html'
-        }
+    {
+        method: 'get',
+        path: '/blog',
+        auth_required: false,
+        content_type: 'text/html'
+    }
     ];
     cb(null, routes);
 };
