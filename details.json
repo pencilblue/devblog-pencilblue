@@ -2,7 +2,8 @@
     "uid": "devblog-pencilblue",
     "name": "Devblog Theme",
     "description": "A PencilBlue theme built with a developer blog in mind.",
-    "version": "0.1.0",
+    "version": "0.1.1",
+    "pb_version": "0.4.x",
     "author": {
         "name": "PencilBlue",
         "email": "info@pencilblue.org",
