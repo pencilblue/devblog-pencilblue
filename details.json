@@ -66,6 +66,9 @@
     "main_module": {
         "path": "devblog.js"
     },
+    "dependencies": {
+        "async": "0.9.0"
+    },
     "theme": {
         "settings": [],
         "content_templates": []

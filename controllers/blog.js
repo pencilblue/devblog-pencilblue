@@ -1,24 +1,40 @@
+/*
+    Copyright (C) 2015  PencilBlue, LLC
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+//dependencies
 var async = require('async');
 
 module.exports = function BlogModule(pb) {
-  /**
+    
+    //pb dependencies
+    var util             = pb.util;
+    var PluginService    = pb.PluginService;
+    var TopMenu          = pb.TopMenuService;
+    var Comments         = pb.CommentService;
+    var ArticleService   = pb.ArticleService;
+    var contentService   = new pb.ContentService();
+    var externalProfiles = PluginService.getService('external_profiles', 'devblog-pencilblue');
+  
+ /**
   * Blog page of the pencilblue theme
   *
   * @author Blake Callens <blake@pencilblue.org>
-  * @copyright PencilBlue 2014, All rights reserved
   */
   function Blog(){}
-
-  //dependencies
-  var PluginService = pb.PluginService;
-  var util = pb.util;
-  var TopMenu = pb.TopMenuService;
-  var Comments = pb.CommentService;
-  var ArticleService = pb.ArticleService;
-  var externalProfiles = PluginService.getService('external_profiles', 'devblog-pencilblue');
-  var contentService = new pb.ContentService();
-
-  //inheritance
   util.inherits(Blog, pb.BaseController);
 
   Blog.prototype.render = function(cb) {
