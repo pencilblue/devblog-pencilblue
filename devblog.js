@@ -38,8 +38,8 @@ module.exports = function DevblogModule(pb) {
    * The result is ignored
    */
   Devblog.onStartup = function(cb) {
-      pb.AdminSubnavService.registerFor('plugin_settings', function(navKey, localization, plugin) {
-          if(plugin.uid === 'devblog-pencilblue') {
+      pb.AdminSubnavService.registerFor('plugin_settings', function(navKey, localization, data) {
+          if(data.plugin.uid === 'devblog-pencilblue') {
               return [
                   {
                       name: 'home_page_settings',
