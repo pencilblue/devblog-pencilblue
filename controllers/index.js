@@ -1,37 +1,38 @@
 module.exports = function IndexModule(pb) {
+    
   /**
    * Index - The home page controller of the portfolio theme.
    *
    * @author Blake Callens <blake@pencilblue.org>
    * @copyright 2014 PencilBlue, LLC.  All Rights Reserved
    */
-
   function Index() {}
 
-  //dependencies
-  var PluginService = pb.PluginService;
-  var util = pb.util;
-  var TopMenu = pb.TopMenuService;
-  var Comments = pb.CommentService;
-  var ArticleService = pb.ArticleService;
-  var externalProfiles = PluginService.getService('external_profiles', 'devblog-pencilblue');
-  var pluginService = new PluginService();
+    //dependencies
+    var util = pb.util;
+    var config = pb.config;
+    var PluginService = pb.PluginService;
+    var TopMenu = pb.TopMenuService;
+    var Comments = pb.CommentService;
+    var ArticleService = pb.ArticleService;
+    var externalProfiles = PluginService.getService('external_profiles', 'devblog-pencilblue');
+    var pluginService = new PluginService();
 
-  //inheritance
-  util.inherits(Index, pb.BaseController);
+    //inheritance
+    util.inherits(Index, pb.BaseController);
 
-  /**
-  * This is the function that will be called by the system's RequestHandler.  It
-  * will map the incoming route to the ones below and then instantiate this
-  * prototype.  The request handler will then proceed to call this function.
-  * Its callback should contain everything needed in order to provide a response.
-  *
-  * @param cb The callback.  It does not require a an error parameter.  All
-  * errors should be handled by the controller and format the appropriate
-  *  response.  The system will attempt to catch any catastrophic errors but
-  *  makes no guarantees.
-  */
-  Index.prototype.render = function(cb) {
+    /**
+     * This is the function that will be called by the system's RequestHandler.  It
+     * will map the incoming route to the ones below and then instantiate this
+     * prototype.  The request handler will then proceed to call this function.
+     * Its callback should contain everything needed in order to provide a response.
+     *
+     * @param cb The callback.  It does not require a an error parameter.  All
+     * errors should be handled by the controller and format the appropriate
+     *  response.  The system will attempt to catch any catastrophic errors but
+     *  makes no guarantees.
+     */
+    Index.prototype.render = function(cb) {
       var self = this;
 
       var content = {
@@ -70,7 +71,7 @@ module.exports = function IndexModule(pb) {
                           self.ts.registerLocal('meta_keywords', homePageKeywords);
                           self.ts.registerLocal('meta_desc', homePageDescription);
                           self.ts.registerLocal('meta_title', pb.config.siteName);
-                          self.ts.registerLocal('meta_lang', localizationLanguage);
+                          self.ts.registerLocal('meta_lang', config.localization.defaultLocale);
                           self.ts.registerLocal('current_url', self.req.url);
                           self.ts.registerLocal('navigation', new pb.TemplateValue(navigation, false));
                           self.ts.registerLocal('account_buttons', new pb.TemplateValue(accountButtons, false));
