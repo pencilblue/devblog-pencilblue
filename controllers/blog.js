@@ -22,6 +22,7 @@ module.exports = function BlogModule(pb) {
     
     //pb dependencies
     var util             = pb.util;
+    var config           = pb.config;
     var PluginService    = pb.PluginService;
     var TopMenu          = pb.TopMenuService;
     var Comments         = pb.CommentService;
@@ -48,13 +49,14 @@ module.exports = function BlogModule(pb) {
 
       contentService.getSettings(function(err, contentSettings) {
           self.gatherData(function(err, data) {
-              ArticleService.getMetaInfo(data.content[0], function(metaKeywords, metaDescription, metaTitle, metaThumbnail) {
+              var articleService = new pb.ArticleService();
+                articleService.getMetaInfo(data.content[0], function(metaKeywords, metaDescription, metaTitle, metaThumbnail) {
 
                   self.ts.reprocess = false;
                   self.ts.registerLocal('meta_keywords', metaKeywords);
                   self.ts.registerLocal('meta_desc', metaDescription);
                   self.ts.registerLocal('meta_title', metaTitle);
-                  self.ts.registerLocal('meta_lang', localizationLanguage);
+                  self.ts.registerLocal('meta_lang', config.localization.defaultLocale);
                   self.ts.registerLocal('meta_thumbnail', metaThumbnail);
                   self.ts.registerLocal('current_url', self.req.url);
                   self.ts.registerLocal('navigation', new pb.TemplateValue(data.nav.navigation, false));
