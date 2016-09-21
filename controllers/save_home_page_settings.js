@@ -1,20 +1,23 @@
+'use strict';
+
 module.exports = function SaveHomePageSettingsModule(pb) {
-  /**
-  * SaveHomePageSettings - Saves settings for the display of home page content in the Portfolio theme
-  *
-  * @author Blake Callens <blake@pencilblue.org>
-  * @copyright 2014 PencilBlue, LLC.  All Rights Reserved
-  */
 
-  function SaveHomePageSettings() {}
+    //dependencies
+    var util = pb.util;
 
-  //dependencies
-  var util = pb.util;
+    /**
+     * Saves settings for the display of home page content in the Portfolio theme
+     * @class SaveHomePageSettings
+     * @constructor
+     */
+    function SaveHomePageSettings() {}
+    util.inherits(SaveHomePageSettings, pb.BaseController);
 
-  //inheritance
-  util.inherits(SaveHomePageSettings, pb.BaseController);
-
-  SaveHomePageSettings.prototype.render = function(cb) {
+    /**
+     * @method render
+     * @param {function} cb
+     */
+    SaveHomePageSettings.prototype.render = function(cb) {
       var self = this;
 
       this.getJSONPostParams(function(err, post) {
@@ -41,36 +44,36 @@ module.exports = function SaveHomePageSettingsModule(pb) {
                   if(util.isError(err))  {
                       cb({
                           code: 500,
-                          content: pb.BaseController.apiResponse(pb.BaseController.API_FAILURE, self.ls.get('ERROR_SAVING'), result)
+                          content: pb.BaseController.apiResponse(pb.BaseController.API_FAILURE, self.ls.g('generic.ERROR_SAVING'), result)
                       });
                       return;
                   }
 
-                  cb({content: pb.BaseController.apiResponse(pb.BaseController.API_SUCCESS, self.ls.get('HOME_PAGE_SETTINGS') + ' ' + self.ls.get('SAVED'))});
+                  cb({content: pb.BaseController.apiResponse(pb.BaseController.API_SUCCESS, self.ls.g('HOME_PAGE_SETTINGS') + ' ' + self.ls.g('admin.SAVED'))});
               });
           });
       });
-  };
+    };
 
-  SaveHomePageSettings.prototype.getSanitizationRules = function() {
+    SaveHomePageSettings.prototype.getSanitizationRules = function() {
       return {
           page_layout: pb.BaseController.getContentSanitizationRules()
       };
-  };
+    };
 
-  SaveHomePageSettings.getRoutes = function(cb) {
+    SaveHomePageSettings.getRoutes = function(cb) {
       var routes = [
-      {
-          method: 'post',
-          path: '/actions/admin/plugins/settings/portfolio/home_page',
-          auth_required: true,
-          access_level: pb.SecurityService.ACCESS_EDITOR,
-          content_type: 'text/html'
-      }
+          {
+              method: 'post',
+              path: '/actions/admin/plugins/settings/portfolio/home_page',
+              auth_required: true,
+              access_level: pb.SecurityService.ACCESS_EDITOR,
+              content_type: 'text/html'
+          }
       ];
       cb(null, routes);
-  };
+    };
 
   //exports
   return SaveHomePageSettings;
-}
+};
