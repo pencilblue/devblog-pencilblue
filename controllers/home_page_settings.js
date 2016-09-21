@@ -1,21 +1,20 @@
+'use strict';
+
 module.exports = function HomePageSettingsModule(pb) {
-  /**
-   * HomePageSettings - Settings for the display of home page content in the Portfolio theme
-   *
-   * @author Blake Callens <blake@pencilblue.org>
-   * @copyright 2014 PencilBlue, LLC.  All Rights Reserved
-   */
 
-  function HomePageSettings() {}
+    //dependencies
+    var PluginService = pb.PluginService;
+    var util = pb.util;
 
-  //dependencies
-  var PluginService = pb.PluginService;
-  var util = pb.util;
+    /**
+     * Settings for the display of home page content in the Portfolio theme
+     * @class HomePageSettings
+     * @constructor
+     */
+    function HomePageSettings() {}
+    util.inherits(HomePageSettings, pb.BaseController);
 
-  //inheritance
-  util.inherits(HomePageSettings, pb.BaseController);
-
-  HomePageSettings.prototype.render = function(cb) {
+    HomePageSettings.prototype.render = function(cb) {
       var self = this;
 
       var content = {
@@ -28,19 +27,19 @@ module.exports = function HomePageSettingsModule(pb) {
               active: 'active',
               href: '#home_layout',
               icon: 'home',
-              title: self.ls.get('HOME_LAYOUT')
+              title: self.ls.g('HOME_LAYOUT')
           },
           {
               href: '#media',
               icon: 'picture-o',
-              title: self.ls.get('HOME_MEDIA')
+              title: self.ls.g('HOME_MEDIA')
           }
       ];
 
       var pills = [
       {
           name: 'devblog_settings',
-          title: self.ls.get('HOME_PAGE_SETTINGS'),
+          title: self.ls.g('HOME_PAGE_SETTINGS'),
           icon: 'chevron-left',
           href: '/admin/plugins/devblog-pencilblue/settings'
       }];
@@ -61,8 +60,8 @@ module.exports = function HomePageSettingsModule(pb) {
           mservice.get(function(err, media) {
               if(homePageSettings.page_media) {
                   var pageMedia = [];
-                  for(i = 0; i < homePageSettings.page_media.length; i++) {
-                      for(j = 0; j < media.length; j++) {
+                  for(var i = 0; i < homePageSettings.page_media.length; i++) {
+                      for(var j = 0; j < media.length; j++) {
                           if(media[j]._id.equals(ObjectID(homePageSettings.page_media[i]))) {
                               pageMedia.push(media[j]);
                               media.splice(j, 1);
@@ -88,21 +87,21 @@ module.exports = function HomePageSettingsModule(pb) {
               });
           });
       });
-  };
+    };
 
-  HomePageSettings.getRoutes = function(cb) {
+    HomePageSettings.getRoutes = function(cb) {
       var routes = [
-      {
-          method: 'get',
-          path: '/admin/plugins/devblog/settings/home_page',
-          auth_required: true,
-          access_level: pb.SecurityService.ACCESS_EDITOR,
-          content_type: 'text/html'
-      }
+          {
+              method: 'get',
+              path: '/admin/plugins/devblog/settings/home_page',
+              auth_required: true,
+              access_level: pb.SecurityService.ACCESS_EDITOR,
+              content_type: 'text/html'
+          }
       ];
       cb(null, routes);
-  };
+    };
 
-  //exports
-  return HomePageSettings;
-}
+    //exports
+    return HomePageSettings;
+};
